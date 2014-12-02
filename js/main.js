@@ -63,7 +63,16 @@ if( true ){
 	if( !navigator.getUserMedia )	throw new Error("navigator.getUserMedia not found.");
 	if( !window.URL )		throw new Error("window.URL not found.");
 	if(!window.URL.createObjectURL)	throw new Error("window.URL.createObjectURL not found.");
-	navigator.getUserMedia('video', function(stream) {
+var vgaConstraints  = {
+  video: {
+    mandatory: {
+      maxWidth: 640,
+      maxHeight: 360
+    }
+  }
+};
+
+	navigator.getUserMedia(vgaConstraints, function(stream) {
 		videoEl.src	= window.URL.createObjectURL(stream);
 	}, function(error) {
 		alert("Couldn't access webcam.");
