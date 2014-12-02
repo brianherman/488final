@@ -1,5 +1,4 @@
 var threexAR;
-
 // setup three.js renderer
 var renderer	= new THREE.WebGLRenderer({
 	antialias	: true
@@ -20,25 +19,31 @@ camera.position.set(0, 0, 5);
 scene.add(camera);
 
 // setup lights
-scene.add(new THREE.AmbientLight(0xffffff));
+//scene.add(new THREE.AmbientLight(0xffffff));
+$(function() {
+//var light	= new THREE.DirectionalLight(0xffffff);
+//light.position.set(3, -3, 1).normalize();
+//scene.add(light);
 
-var light	= new THREE.DirectionalLight(0xffffff);
-light.position.set(3, -3, 1).normalize();
-scene.add(light);
-
-var light	= new THREE.DirectionalLight(0xffffff);
-light.position.set(-0, 2, -1).normalize();
-scene.add(light);
-
-var material	= new THREE.MeshNormalMaterial();
-var geometry	= new THREE.TorusGeometry( 10, 3 );
+//var light	= new THREE.DirectionalLight(0xffffff);
+//light.position.set(-0, 2, -1).normalize();
+//scene.add(light);
+var material	= new THREE.ShaderMaterial({
+            vertexShader: "void main() {gl_Position = projectionMatrix * modelViewMatrix *vec4(position,1.0);}",
+            fragmentShader: "void main(){ gl_FragColor = vec4(1.0,1.0,0.0,1.0);}"});
+//var material = new THREE.MeshNormalMaterial();
+//	MeshNormalMaterial();
+//var geometry	= new THREE.TorusGeometry( 10, 3 );
 var mesh	= new THREE.Mesh(geometry, material);
 mesh.position.z = -5;
 scene.add(mesh);
-
+});
 if( true ){
 	new THREE.JSONLoader().load('models/teapot.js', function(geometry){
-		var material	= new THREE.MeshNormalMaterial();
+               var material    = new THREE.MeshNormalMaterial(); 
+//		var material	= new THREE.ShaderMaterial({
+//            vertexShader: document.getElementById( 'vertexShader' ).textContent,
+//            fragmentShader: document.getElementById( 'fragmentShader' ).textContent });
 		var mesh	= new THREE.Mesh(geometry, material);
 		mesh.position.z	= -10;
 		scene.add(mesh);
@@ -180,7 +185,10 @@ window.onload	= function(){
 		scene.add(marker.object3d);		
 
 		if( false ){
-			var material	= new THREE.MeshLambertMaterial({color: 0|(0xffffff*Math.random())});
+			//var material	= new THREE.MeshLambertMaterial({color: 0|(0xffffff*Math.random())});
+            var material    = new THREE.ShaderMaterial({
+                            vertexShader: "void main() {gl_Position = projectionMatrix * modelViewMatrix *vec4(position,1.0);}",
+                            fragmentShader: "void main(){ gl_FragColor = vec4(1.0,1.0,0.0,1.0);}"});
 			var geometry	= new THREE.CubeGeometry(100,100,100);
 			var mesh	= new THREE.Mesh(geometry, material);
 			mesh.position.z	= -50;			
@@ -190,7 +198,11 @@ window.onload	= function(){
 			marker.object3d.add(mesh);
 		}
 		if( true ){
-			var material	= new THREE.MeshLambertMaterial({color: 0xFFFF00});
+//			var material	= new THREE.MeshLambertMaterial({color: 0xFFFF00});
+
+            var material    = new THREE.ShaderMaterial({
+                            vertexShader: "void main() {gl_Position = projectionMatrix * modelViewMatrix *vec4(position,1.0);}",
+                            fragmentShader: "void main(){ gl_FragColor = vec4(1.0,1.0,0.0,1.0);}"});
 			var geometry	= new THREE.CylinderGeometry(50,0,100);
 			var mesh	= new THREE.Mesh(geometry, material);
 			mesh.rotation.x	= Math.PI/3;
@@ -203,7 +215,10 @@ window.onload	= function(){
 			mesh.doubleSided= true;
 			marker.object3d.add(mesh);
 
-			var material	= new THREE.MeshLambertMaterial({color: 0xFF0000});
+//			var material	= new THREE.MeshLambertMaterial({color: 0xFF0000});
+            var material    = new THREE.ShaderMaterial({
+                            vertexShader: "void main() {gl_Position = projectionMatrix * modelViewMatrix *vec4(position,1.0);}",
+                            fragmentShader: "void main(){ gl_FragColor = vec4(1.0,1.0,0.0,1.0);}"});
 			var geometry	= new THREE.SphereGeometry(20,20,20);
 			var mesh	= new THREE.Mesh(geometry, material);
 			mesh.rotation.x	= Math.PI/3;
