@@ -19,14 +19,14 @@ camera.position.set(0, 0, 5);
 scene.add(camera);
 
 // setup lights
-//scene.add(new THREE.AmbientLight(0xffffff));
-//var light	= new THREE.DirectionalLight(0xffffff);
-//light.position.set(3, -3, 1).normalize();
-//scene.add(light);
+scene.add(new THREE.AmbientLight(0xffffff));
+var light	= new THREE.DirectionalLight(0xffffff);
+light.position.set(3, -3, 1).normalize();
+scene.add(light);
 
-//var light	= new THREE.DirectionalLight(0xffffff);
-//light.position.set(-0, 2, -1).normalize();
-//scene.add(light);
+var light	= new THREE.DirectionalLight(0xffffff);
+light.position.set(-0, 2, -1).normalize();
+scene.add(light);
 var material	= new THREE.ShaderMaterial({
             vertexShader: "void main() {gl_Position = projectionMatrix * modelViewMatrix *vec4(position,1.0);}",
             fragmentShader: "void main(){ gl_FragColor = vec4(1.0,1.0,0.0,1.0);}"});
@@ -139,10 +139,14 @@ videoScene.add(videoCam);
 //////////////////////////////////////////////////////////////////////////////////
 //										//
 //////////////////////////////////////////////////////////////////////////////////
-
+var uniforms = {
+               in_val: { type: "f", value: 0 }
+};
 
 function animate(){	
-	requestAnimationFrame(animate);
+    uniforms.in_val += parseFloat(0.1);
+    console.log(uniforms.in_val);
+    requestAnimationFrame(animate);
 	render();
 };
 
@@ -185,11 +189,13 @@ $(function() {
 
 		if( false ){
 			//var material	= new THREE.MeshLambertMaterial({color: 0|(0xffffff*Math.random())});
-           
             var material    = new THREE.ShaderMaterial({
+                            uniforms,
                             vertexShader: $("#vertexShader").text(),
-                            fragmentShader: $("#fragmentShader").text()});
-			var geometry	= new THREE.CubeGeometry(100,100,100);
+                            fragmentShader: $("#fragmentShader").text(),
+                        wireframe: true 
+            });
+			var geometry	= new THREE.SphereGeometry(150, 100, 100);
 			var mesh	= new THREE.Mesh(geometry, material);
 			mesh.position.z	= -50;			
 			// FIXME there is a bug here - see if you can do that at the matrix level
@@ -200,12 +206,15 @@ $(function() {
 		if( true ){
 //			var material	= new THREE.MeshLambertMaterial({color: 0xFFFF00});
             var material    = new THREE.ShaderMaterial({
+                            uniforms,
                             vertexShader: $("#vertexShader").text(),
-                            fragmentShader: $("#fragmentShader").text()});
+                            fragmentShader: $("#fragmentShader").text(),
+                        wireframe: true 
+            });
            // var material    = new THREE.ShaderMaterial({
              //               vertexShader: "void main() {gl_Position = projectionMatrix * modelViewMatrix *vec4(position,1.0);}",
               //              fragmentShader: "void main(){ gl_FragColor = vec4(1.0,1.0,0.0,1.0);}"});
-			var geometry	= new THREE.CylinderGeometry(50,0,100);
+			var geometry	= new THREE.SphereGeometry(150,100,100);
            //  new THREE.JSONLoader().load('models/teapot.js', function(geometry){
 			    var mesh	= new THREE.Mesh(geometry, material);
 			mesh.rotation.x	= Math.PI/3;
@@ -221,12 +230,15 @@ $(function() {
              //});
 //			var material	= new THREE.MeshLambertMaterial({color: 0xFF0000});
             var material    = new THREE.ShaderMaterial({
+                            uniforms,
                             vertexShader: $("#vertexShader").text(),
-                            fragmentShader: $("#fragmentShader").text()});
+                            fragmentShader: $("#fragmentShader").text(),
+                        wireframe: true 
+            });
             //var material    = new THREE.ShaderMaterial({
             //                vertexShader: "void main() {gl_Position = projectionMatrix * modelViewMatrix *vec4(position,1.0);}",
             //                fragmentShader: "void main(){ gl_FragColor = vec4(1.0,1.0,0.0,1.0);}"});
-			var geometry	= new THREE.SphereGeometry(20,20,20);
+			var geometry	= new THREE.SphereGeometry(100,150,100);
 			var mesh	= new THREE.Mesh(geometry, material);
 			mesh.rotation.x	= Math.PI/3;
 			mesh.rotation.z	= -Math.PI/10;

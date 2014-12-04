@@ -19,24 +19,27 @@
 				if( !element )	return;
 				element.style.display	= value ? '' : 'none';
 			}
+            setVisible('srcElement', false);
+            setVisible('canvasRaster', false);
+            setVisible('debugCanvas', false);
 			</script>
 			<label>srcElement:
-				<input type="checkbox" checked onChange="setVisible('srcElement', this.checked);"/>
+				<input type="checkbox" onChange="setVisible('srcElement', this.checked);"/>
 			</label>
 			|
 			<label>canvasRaster:
-				<input type="checkbox" checked onChange="setVisible('canvasRaster', this.checked);"/>
+				<input type="checkbox"  onChange="setVisible('canvasRaster', this.checked);"/>
 			</label>
 			|
 			<label>debug:
-				<input type="checkbox" checked onChange="setVisible('debugCanvas', this.checked);"/>
+				<input type="checkbox" onChange="setVisible('debugCanvas', this.checked);"/>
 			</label>
 			|
 			Threshold:
 			<input id="thresholdRange" type="range" min="0" max="256" onChange="setThreshold(this.value);" />
 			<span id="thresholdText"></span>
 		</div>
-    <script type="x-shader/x-vertex" id="vertexshader">
+    <script type="x-shader/x-vertex" id="vertexShader">
 /**
  * Multiply each vertex by the
  * model-view matrix and the
@@ -51,7 +54,7 @@ void main() {
 }
 
     </script>
-        <script type="x-shader/x-fragment" id="fragmentshader">
+    	<script type="x-shader/x-fragment" id="fragmentShader">
 /**
  * Set the colour to a lovely pink.
  * Note that the color is a 4D Float
