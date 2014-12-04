@@ -17,7 +17,7 @@ var scene	= new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(35, renderer.domElement.width/renderer.domElement.height, 1, 10000 );
 camera.position.set(0, 0, 5);
 scene.add(camera);
-
+var start = Date.now();
 // setup lights
 scene.add(new THREE.AmbientLight(0xffffff));
 var light	= new THREE.DirectionalLight(0xffffff);
@@ -144,10 +144,19 @@ var uniforms = {
 };
 
             var mats    = new THREE.ShaderMaterial({
-                            uniforms,
+        uniforms: { 
+            tExplosion: {
+                type: "t", 
+                value: THREE.ImageUtils.loadTexture( 'explosion.png' )
+            },
+            time: { // float initialized to 0
+                type: "f", 
+                value: 0.0 
+            }
+        },
                             vertexShader: $("#vertexShader").text(),
                             fragmentShader: $("#fragmentShader").text(),
-                        wireframe: true 
+            //            wireframe: true 
             });
 function animate(){	
     requestAnimationFrame(animate);
