@@ -139,23 +139,15 @@ videoScene.add(videoCam);
 //////////////////////////////////////////////////////////////////////////////////
 //										//
 //////////////////////////////////////////////////////////////////////////////////
-var uniforms = {
-               in_val: { type: "f", value: 0 }
-};
 
-            var mats    = new THREE.ShaderMaterial({
-                            uniforms,
-                            vertexShader: $("#vertexShader").text(),
-                            fragmentShader: $("#fragmentShader").text(),
-                        wireframe: true 
-            });
+
 function animate(){	
     requestAnimationFrame(animate);
 	render();
 };
 
 function render(){
-mats.uniforms[ 'time' ].value = .00025 * ( Date.now() - start );
+
 	if( true ){
 		if( srcElement instanceof HTMLImageElement ){
 			videoTex.needsUpdate	= true;
@@ -193,6 +185,11 @@ $(function() {
 
 		if( false ){
 			//var material	= new THREE.MeshLambertMaterial({color: 0|(0xffffff*Math.random())});
+            var material    = new THREE.ShaderMaterial({
+                            vertexShader: $("#vertexShader").text(),
+                            fragmentShader: $("#fragmentShader").text(),
+                        wireframe: true 
+            });
 			var geometry	= new THREE.SphereGeometry(150, 100, 100);
 			var mesh	= new THREE.Mesh(geometry, material);
 			mesh.position.z	= -50;			
@@ -204,7 +201,6 @@ $(function() {
 		if( true ){
 //			var material	= new THREE.MeshLambertMaterial({color: 0xFFFF00});
             var material    = new THREE.ShaderMaterial({
-                            uniforms,
                             vertexShader: $("#vertexShader").text(),
                             fragmentShader: $("#fragmentShader").text(),
                         wireframe: true 
@@ -214,7 +210,7 @@ $(function() {
               //              fragmentShader: "void main(){ gl_FragColor = vec4(1.0,1.0,0.0,1.0);}"});
 			var geometry	= new THREE.SphereGeometry(150,100,100);
            //  new THREE.JSONLoader().load('models/teapot.js', function(geometry){
-			    var mesh	= new THREE.Mesh(geometry, mats);
+			    var mesh	= new THREE.Mesh(geometry, material);
 			mesh.rotation.x	= Math.PI/3;
 			mesh.rotation.z	= -Math.PI/10;
 			mesh.position.x	= -30;
@@ -228,7 +224,6 @@ $(function() {
              //});
 //			var material	= new THREE.MeshLambertMaterial({color: 0xFF0000});
             var material    = new THREE.ShaderMaterial({
-                            uniforms,
                             vertexShader: $("#vertexShader").text(),
                             fragmentShader: $("#fragmentShader").text(),
                         wireframe: true 
@@ -237,7 +232,7 @@ $(function() {
             //                vertexShader: "void main() {gl_Position = projectionMatrix * modelViewMatrix *vec4(position,1.0);}",
             //                fragmentShader: "void main(){ gl_FragColor = vec4(1.0,1.0,0.0,1.0);}"});
 			var geometry	= new THREE.SphereGeometry(100,150,100);
-			var mesh	= new THREE.Mesh(geometry, mats);
+			var mesh	= new THREE.Mesh(geometry, material);
 			mesh.rotation.x	= Math.PI/3;
 			mesh.rotation.z	= -Math.PI/10;
 			mesh.position.x	= -0;
