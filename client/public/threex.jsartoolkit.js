@@ -64,8 +64,8 @@ THREEx.JSARToolKit	= function(opts){
 	// For tracking video set continue mode to true. In continue mode, the detector
 	// tracks markers across multiple frames.
 	arDetector.setContinueMode(true);
-	this._arRaster	= arRaster;
-	this._arDetector= arDetector;
+	this._arRaster	 = arRaster;
+	this._arDetector = arDetector;
 
 	// Next we need to make the Three.js camera use the FLARParam matrix.
 	// Copy the camera perspective matrix from the FLARParam to the WebGL library camera matrix.
@@ -84,12 +84,12 @@ THREEx.JSARToolKit.prototype.canvasRaster	= function()
 */
 THREEx.JSARToolKit.prototype.update	= function()
 {
-	var canvasRaster= this._canvasRaster;
-	var markers	= this._markers;
-	var arRaster	= this._arRaster;
-	var arDetector	= this._arDetector;
-	var events	= [];
-	var tmpGlMat	= new Float32Array(16);
+	var canvasRaster = this._canvasRaster;
+	var markers  	 = this._markers;
+	var arRaster	 = this._arRaster;
+	var arDetector	 = this._arDetector;
+	var events	     = [];
+	var tmpGlMat	 = new Float32Array(16);
 
 	var ctxRaster	= canvasRaster.getContext('2d');
 	// copy srcElement into canvasRaster
@@ -134,6 +134,7 @@ THREEx.JSARToolKit.prototype.update	= function()
 		// todo noneed to store marker.transform
 		this._copyMatrixAr2Gl(marker.transform, tmpGlMat);
 		this._copyMatrixGl2Threejs(tmpGlMat, event.matrix);
+		
 	}
 	// handle markers age - deleting old markers too
 	// marker.age is the amount of iteration without detection

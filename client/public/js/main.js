@@ -5,7 +5,7 @@ var renderer	= new THREE.WebGLRenderer({
 });
 renderer.setSize(320, 240);
 renderer.setSize(320*2.5, 240*2.5);
-document.body.appendChild(renderer.domElement);
+//document.body.appendChild(renderer.domElement);
 
 // create the scene
 var scene	= new THREE.Scene();
@@ -111,7 +111,7 @@ document.body.appendChild(srcElement);
 document.querySelectorAll("#thresholdText")[0].innerHTML	= threshold;
 document.querySelectorAll("#thresholdRange")[0].value		= threshold;
 
-//////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
 //										//
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -121,7 +121,7 @@ var videoCam, 	videoScene;
 
 // Create scene and quad for the video.
 videoTex 	= new THREE.Texture(srcElement);
-var geometry	= new THREE.PlaneGeometry(2, 2, 0);
+var geometry	= new THREE.PlaneBufferGeometry(2, 2, 0);
 var material	= new THREE.MeshBasicMaterial({
 	color		: 0x4444AA,
 	color		: 0x6666FF,
@@ -183,62 +183,58 @@ $(function() {
 		marker.object3d.matrixAutoUpdate = false;
 		scene.add(marker.object3d);		
 
-		if( false ){
-			//var material	= new THREE.MeshLambertMaterial({color: 0|(0xffffff*Math.random())});
-           
-            var material    = new THREE.ShaderMaterial({
-                            vertexShader: $("#vertexShader").text(),
-                            fragmentShader: $("#fragmentShader").text()});
-			var geometry	= new THREE.CubeGeometry(100,100,100);
-			var mesh	= new THREE.Mesh(geometry, material);
-			mesh.position.z	= -50;			
-			// FIXME there is a bug here - see if you can do that at the matrix level
-			//mesh.scale.set(-1, -1, -1);
-			mesh.doubleSided= true;
-			marker.object3d.add(mesh);
-		}
-		if( true ){
+		//var material	= new THREE.MeshLambertMaterial({color: 0|(0xffffff*Math.random())});
+       
+        var material    = new THREE.ShaderMaterial({
+                        vertexShader: $("#vertexShader").text(),
+                        fragmentShader: $("#fragmentShader").text()});
+		var geometry	= new THREE.CubeGeometry(100,100,100);
+		var mesh	= new THREE.Mesh(geometry, material);
+		mesh.position.z	= -50;			
+		// FIXME there is a bug here - see if you can do that at the matrix level
+		//mesh.scale.set(-1, -1, -1);
+		mesh.doubleSided= true;
+		marker.object3d.add(mesh);
 //			var material	= new THREE.MeshLambertMaterial({color: 0xFFFF00});
-            var material    = new THREE.ShaderMaterial({
-                            vertexShader: $("#vertexShader").text(),
-                            fragmentShader: $("#fragmentShader").text()});
-           // var material    = new THREE.ShaderMaterial({
-             //               vertexShader: "void main() {gl_Position = projectionMatrix * modelViewMatrix *vec4(position,1.0);}",
-              //              fragmentShader: "void main(){ gl_FragColor = vec4(1.0,1.0,0.0,1.0);}"});
-			var geometry	= new THREE.CylinderGeometry(50,0,100);
-           //  new THREE.JSONLoader().load('models/teapot.js', function(geometry){
-			    var mesh	= new THREE.Mesh(geometry, material);
-			mesh.rotation.x	= Math.PI/3;
-			mesh.rotation.z	= -Math.PI/10;
-			mesh.position.x	= -30;
-			mesh.position.y	=  45;
-			mesh.position.z	= -50;
-			// FIXME there is a bug here - see if you can do that at the matrix level
-			//mesh.scale.set(-1, -1, -1);
-			mesh.doubleSided= true;
-			marker.object3d.add(mesh);
+        var material    = new THREE.ShaderMaterial({
+                        vertexShader: $("#vertexShader").text(),
+                        fragmentShader: $("#fragmentShader").text()});
+       // var material    = new THREE.ShaderMaterial({
+         //               vertexShader: "void main() {gl_Position = projectionMatrix * modelViewMatrix *vec4(position,1.0);}",
+          //              fragmentShader: "void main(){ gl_FragColor = vec4(1.0,1.0,0.0,1.0);}"});
+		var geometry	= new THREE.CylinderGeometry(50,0,100);
+       //  new THREE.JSONLoader().load('models/teapot.js', function(geometry){
+		    var mesh	= new THREE.Mesh(geometry, material);
+		mesh.rotation.x	= Math.PI/3;
+		mesh.rotation.z	= -Math.PI/10;
+		mesh.position.x	= -30;
+		mesh.position.y	=  45;
+		mesh.position.z	= -50;
+		// FIXME there is a bug here - see if you can do that at the matrix level
+		//mesh.scale.set(-1, -1, -1);
+		mesh.doubleSided= true;
+		marker.object3d.add(mesh);
 
-             //});
+         //});
 //			var material	= new THREE.MeshLambertMaterial({color: 0xFF0000});
-            var material    = new THREE.ShaderMaterial({
-                            vertexShader: $("#vertexShader").text(),
-                            fragmentShader: $("#fragmentShader").text()});
-            //var material    = new THREE.ShaderMaterial({
-            //                vertexShader: "void main() {gl_Position = projectionMatrix * modelViewMatrix *vec4(position,1.0);}",
-            //                fragmentShader: "void main(){ gl_FragColor = vec4(1.0,1.0,0.0,1.0);}"});
-			var geometry	= new THREE.SphereGeometry(20,20,20);
-			var mesh	= new THREE.Mesh(geometry, material);
-			mesh.rotation.x	= Math.PI/3;
-			mesh.rotation.z	= -Math.PI/10;
-			mesh.position.x	= -0;
-			mesh.position.y	= 150;
-			mesh.position.z	= -50;
-			// FIXME there is a bug here - see if you can do that at the matrix level
-			//mesh.scale.set(-1, -1, -1);
-			mesh.doubleSided= true;
-			marker.object3d.add(mesh);
+        var material    = new THREE.ShaderMaterial({
+                        vertexShader: $("#vertexShader").text(),
+                        fragmentShader: $("#fragmentShader").text()});
+        //var material    = new THREE.ShaderMaterial({
+        //                vertexShader: "void main() {gl_Position = projectionMatrix * modelViewMatrix *vec4(position,1.0);}",
+        //                fragmentShader: "void main(){ gl_FragColor = vec4(1.0,1.0,0.0,1.0);}"});
+		var geometry	= new THREE.SphereGeometry(20,20,20);
+		var mesh	= new THREE.Mesh(geometry, material);
+		mesh.rotation.x	= Math.PI/3;
+		mesh.rotation.z	= -Math.PI/10;
+		mesh.position.x	= -0;
+		mesh.position.y	= 150;
+		mesh.position.z	= -50;
+		// FIXME there is a bug here - see if you can do that at the matrix level
+		//mesh.scale.set(-1, -1, -1);
+		mesh.doubleSided= true;
+		marker.object3d.add(mesh);
 		}
-	};
 	var onDelete	= function(event){
 		console.assert(	markers[event.markerId] !== undefined );
 		var markerId	= event.markerId;
