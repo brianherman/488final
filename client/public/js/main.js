@@ -104,8 +104,8 @@ if( false ){
 }
 */
 // add srcElement to the DOM
-srcElement.id		= 'srcElement';
-document.body.appendChild(srcElement);	
+//srcElement.id		= 'srcElement';
+//document.body.appendChild(srcElement);	
 
 // update the UI
 document.querySelectorAll("#thresholdText")[0].innerHTML	= threshold;
@@ -148,7 +148,6 @@ function animate(){
 
 function render(){
 
-	if( true ){
 		if( srcElement instanceof HTMLImageElement ){
 			videoTex.needsUpdate	= true;
 			threexAR.update();
@@ -156,7 +155,6 @@ function render(){
 			videoTex.needsUpdate	= true;
 			threexAR.update();
 		}		
-	}
 
 	// trigger the rendering
 	renderer.autoClear = false;
@@ -193,7 +191,7 @@ $(function() {
 		mesh.position.z	= -50;			
 		// FIXME there is a bug here - see if you can do that at the matrix level
 		//mesh.scale.set(-1, -1, -1);
-		mesh.doubleSided= true;
+		mesh.doubleSided = true;
 		marker.object3d.add(mesh);
 //			var material	= new THREE.MeshLambertMaterial({color: 0xFFFF00});
         var material    = new THREE.ShaderMaterial({

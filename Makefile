@@ -1,7 +1,7 @@
 # makefile to automatize simple operations
 
 server:
-	python -m SimpleHTTPServer
+	nodemon ./client/bin/www	
 
 deploy:
 	# assume there is something to commit
