@@ -1,5 +1,12 @@
   threshold = 128;
-  DEBUG = false;
+  DEBUG = true;
+    Object.size = function(obj) {
+        var size = 0, key;
+        for (key in obj) {
+            if (obj.hasOwnProperty(key)) size++;
+        }
+        return size;
+    };
 
   var video = document.createElement('video');
   video.width = 640;
@@ -151,9 +158,22 @@ getUserMedia({'video': true},
         markers[currId].age = 0;
         markers[currId].transform = Object.asCopy(resultMat);
       }
+      var geometry;
+      for(var i in markers){
+        var m = markers[i];
+        if (!m.model) {
+          m.model = new THREE.Object3D();
+        }
+         geometry = new THREE.Geometry();
+         if(m.model){
+           var x = m.model.matrix.getPosition().x;
+           var y = m.model.matrix.getPosition().y;
+           geometry.vertices.push(new THREE.Vector3( m.model.matrix.getPosition()));
+         }
+      }
       for (var i in markers) {
-        console.log(markers[i]);
-        console.log(JSON.stringify(markers[i]).matrix);
+        //console.log(markers[i]);
+        //console.log(JSON.stringify(markers[i]).matrix);
         var r = markers[i];
         if (r.age > 1) {
           delete markers[i];
@@ -165,6 +185,8 @@ getUserMedia({'video': true},
         var m = markers[i];
         if (!m.model) {
           m.model = new THREE.Object3D();
+        }
+          var geometry = new THREE.Geometry();
           var cube = new THREE.Mesh(
             new THREE.CubeGeometry(100,100,100),
             new THREE.MeshLambertMaterial({color: 0|(0xffffff*Math.random())})
@@ -173,42 +195,25 @@ getUserMedia({'video': true},
           cube.doubleSided = true;
           m.model.matrixAutoUpdate = false;
           m.model.add(cube);
-          scene.add(m.model);
-          var markers_x = m.model.position.x;
-          var markers_y = m.model.position.y;
-          console.log(m.model.position.x);
-          console.log(m.model.position.y);
-          var markers_z = -50;
-          var geometry = new THREE.Geometry();
-          geometry.vertices.push( new THREE.Vector3( markers_x, markers_y, markers_z ) );
-          geometry.faces.push(new THREE.Face3(0, 1, 2)); 
-           material = new THREE.MeshBasicMaterial({
-      vertexColors: THREE.VertexColors,
-      side: THREE.DoubleSide,
-    });
-          var mesh = new THREE.Mesh(geometry, material);
-          scene.add(mesh);
-        }
+       //   scene.add(m.model);
+        
         copyMatrix(m.transform, tmp);
         m.model.matrix.setFromArray(tmp);
         m.model.matrixWorldNeedsUpdate = true;
       }
-      for( var i in markers){
-        var m = markers[i];
-        console.log(JSON.stringify(m));
+      if(geometry){
+        geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
+        geometry.computeFaceNormals();
+        var mesh= new THREE.Mesh( geom, new THREE.MeshNormalMaterial() );
+        scene.add(mesh);
       }
-      var triangleMaterial = new THREE.MeshBasicMaterial({ 
-                    color:0xFFFFFF, 
-                    side:THREE.DoubleSide 
-                 });
-      var triangleMesh = new THREE.Mesh(geometry, triangleMaterial);
-      scene.add(triangleMesh)
       renderer.autoClear = false;
       renderer.clear();
       renderer.render(videoScene, videoCam);
       renderer.render(scene, camera);
     }, 15);
-  }
+}
+
 
   THREE.Matrix4.prototype.setFromArray = function(m) {
     return this.set(
