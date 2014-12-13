@@ -1,0 +1,82 @@
+<html>
+	<head>
+		<script src="vendor/JSARToolKit.js"></script>
+		<script src="vendor/Three.js"></script>
+		<script src="vendor/requestanimationframe.js"></script>
+		<script src="js/shimUserMedia.js"></script>
+		<link  href='css/main.css' rel="stylesheet" />
+
+	</head>
+	<body>
+	<div id="loading">
+	</div>
+    <div style="display: none;">
+			<label>srcElement:
+				<input type="checkbox" onChange="setVisible('srcElement', this.checked);"/>
+			</label>
+			|
+			<label>canvasRaster:
+				<input type="checkbox"  onChange="setVisible('canvasRaster', this.checked);"/>
+			</label>
+			|
+			<label>debug:
+				<input type="checkbox" onChange="setVisible('debugCanvas', this.checked);"/>
+			</label>
+			|
+			Threshold:
+			<input id="thresholdRange" type="range" min="0" max="256" onChange="setThreshold(this.value);" />
+			<span id="thresholdText"></span>
+		</div>
+    <script type="x-shader/x-vertex" id="vertexShader">
+/**
+ * Multiply each vertex by the
+ * model-view matrix and the
+ * projection matrix (both provided
+ * by Three.js) to get a final
+ * vertex position
+ */
+void main() {
+  gl_Position = projectionMatrix *
+                modelViewMatrix *
+                vec4(position,1.0);
+}
+
+    </script>
+    	<script type="x-shader/x-fragment" id="fragmentShader">
+/**
+ * Set the colour to a lovely pink.
+ * Note that the color is a 4D Float
+ * Vector, R,G,B and A and each part
+ * runs from 0.0 to 1.0
+ */
+void main() {
+  gl_FragColor = vec4(1.0,  // R
+                      1.0,  // G
+                      0.0,  // B
+                      1.0); // A
+}
+
+
+        </script>
+		<script src='threex.jsartoolkit.js'></script>
+        
+		<script src='https://code.jquery.com/jquery-1.11.1.js'></script>
+     	<script src='js/main4.js'></script>
+
+		<script>
+			function setThreshold(value){
+				var element	= document.querySelectorAll("#thresholdText")[0];
+				element.innerHTML	= value;
+				threexAR._threshold	= value;
+			}
+			function setVisible(domId, value){
+				var element	= document.getElementById(domId);
+				if( !element )	return;
+				element.style.display	= value ? '' : 'none';
+			}
+            setVisible('srcElement', false);
+            setVisible('canvasRaster', false);
+            setVisible('debugCanvas', false);
+			</script>
+	</body>
+</html>
